@@ -95,7 +95,6 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
 	end
 end)
 
--- Original Execute: Runs Pastebin
 executeButton.MouseButton1Click:Connect(function()
 	executeButton.Text = "Starting..."
 	description.Text = "Wait 10-15 mins - Bypassing Anti Cheats."
@@ -114,7 +113,6 @@ executeButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- [New] Execute: Only runs Xycer Hub (no Pastebin)
 newExecuteButton.MouseButton1Click:Connect(function()
 	newExecuteButton.Text = "Loading..."
 	description.Text = "Running first script (Xycer Hub)..."
