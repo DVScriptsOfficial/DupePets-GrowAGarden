@@ -55,7 +55,6 @@ local execCorner = Instance.new("UICorner")
 execCorner.CornerRadius = UDim.new(0, 8)
 execCorner.Parent = executeButton
 
--- NEW BUTTON: [New] Execute
 local newExecuteButton = Instance.new("TextButton")
 newExecuteButton.Text = "[New] Execute"
 newExecuteButton.Font = Enum.Font.GothamBold
@@ -72,7 +71,6 @@ newExecCorner.Parent = newExecuteButton
 
 -- Dragging functionality
 local dragging, dragInput, dragStart, startPos
-
 mainFrame.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = true
@@ -85,13 +83,11 @@ mainFrame.InputBegan:Connect(function(input)
 		end)
 	end
 end)
-
 mainFrame.InputChanged:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		dragInput = input
 	end
 end)
-
 game:GetService("UserInputService").InputChanged:Connect(function(input)
 	if input == dragInput and dragging then
 		local delta = input.Position - dragStart
@@ -99,7 +95,7 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
 	end
 end)
 
--- Original execute
+-- Original Execute: Runs Pastebin
 executeButton.MouseButton1Click:Connect(function()
 	executeButton.Text = "Starting..."
 	description.Text = "Wait 10-15 mins - Bypassing Anti Cheats."
@@ -112,27 +108,14 @@ executeButton.MouseButton1Click:Connect(function()
 	end)
 
 	if success then
-		print("Executed successfully.")
+		print("Pastebin script executed.")
 	else
-		warn("Execution failed:", err)
+		warn("Pastebin failed:", err)
 	end
 end)
 
--- New button functionality
-
-	newExecuteButton.Text = "Loading..."
-	description.Text = "Running alternate script..."
-	task.wait(2)
-	local success, err = pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/GRPGaming/Key-System/refs/heads/Xycer-Hub-Script/ZyGaG6"))()
-	end)
-	if success then
-		description.Text = "New script executed."
-	else
-		description.Text = "New script failed."
-	end
-	newExecuteButton.Text = "[New] Execute"
-end)newExecuteButton.MouseButton1Click:Connect(function()
+-- [New] Execute: Only runs Xycer Hub (no Pastebin)
+newExecuteButton.MouseButton1Click:Connect(function()
 	newExecuteButton.Text = "Loading..."
 	description.Text = "Running first script (Xycer Hub)..."
 
